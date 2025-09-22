@@ -1,0 +1,107 @@
+{
+	"navigation": {
+		"home": "Bosh sahifa",
+		"products": "Mahsulotlar",
+		"catalog": "Katalog",
+		"about": "Aloqa",
+		"portfolio": "Portfolio"
+	},
+	"hero": {
+		"title": "Professional xavfsizlik yechimlari",
+		"subtitle": "Hikvision O'zbekistondagi rasmiy hamkori",
+		"description": "Eng so'nggi texnologiyalar asosida yaratilgan video kuzatuv tizimlari, IP kameralar va xavfsizlik yechimlari",
+		"cta": "Batafsil"
+	},
+	"contact": {
+		"phone": "Telefon:",
+		"address": "Bizning manzil:",
+		"workTime": "Ish vaqti:",
+		"workHours": "Ish kunlari 09:00 dan 19:00 gacha",
+		"addressText": "Toshkent shahri, Chilanzar tumani, Arnasoy kochasi 7A"
+	},
+	"products": {
+		"title": "Mahsulotlar",
+		"description": "Eng mashhur va ishonchli xavfsizlik tizimlari va uskunalari",
+		"bestSellers": "Eng yaxshi sotuvchilar",
+		"newProducts": "Yangi mahsulotlar",
+		"showMore": "Ko‘proq ko‘rsatish",
+		"noProducts": "Mahsulotlar topilmadi",
+		"clearFilters": "Filtrlarni tozalash",
+		"filters": "Filtrlar",
+		"features": "Mahsulot xususiyatlari",
+		"priceRange": "Narx oralig‘i",
+		"allCategories": "Barcha kategoriyalar",
+		"searchPlaceholder": "Mahsulotlarni qidiring...",
+		"sortBy": "Saralash",
+		"sortByName": "Nomi bo‘yicha",
+		"sortByPriceLow": "Narx: pastdan yuqoriga",
+		"sortByPriceHigh": "Narx: yuqoridan pastga",
+		"sortByRating": "Reyting bo‘yicha",
+		"sortByNewest": "Eng yangilari",
+		"categoriesTitle": "Kategoriyalar",
+		"categoryNames": {
+			"cameras": "Kameralar",
+			"intercoms": "Interkomlar",
+			"turnstiles": "Turniketlar"
+		}
+	},
+	"product": {
+		"relatedProducts": "O‘xshash mahsulotlar",
+		"details": "Mahsulot tafsilotlari",
+		"description": "Mahsulot haqida batafsil",
+		"specifications": "Texnik xususiyatlari",
+		"reviews": "Sharhlar",
+		"related": "O‘xshash mahsulotlar",
+		"addToCart": "Savatga qo‘shish",
+		"inStock": "Omborda mavjud",
+		"outOfStock": "Omborda mavjud emas",
+		"price": "Narx",
+		"quantity": "Miqdor"
+	},
+	"features": {
+		"fastDelivery": "Tez yetkazib berish",
+		"fastDeliveryDesc": "Biz odatda bir kun ichida yetkazib beramiz",
+		"support": "24/7 texnik yordam",
+		"supportDesc": "Telefonlarimiz doim ochiq",
+		"guarantee": "100% kafolat",
+		"guaranteeDesc": "Barcha mahsulotlarimiz kafolatlangan",
+		"quality": "Qulay to'lov",
+		"qualityDesc": "Pul o'tkazmasi va naqd pul bilan to‘lash"
+	},
+	"contactPage": {
+		"title": "Biz bilan bog'laning",
+		"subtitle": "Savollaringiz bormi? Biz sizga yordam berishga tayyormiz",
+		"getInTouch": "Aloqa",
+		"contactForm": "Aloqa formasi",
+		"name": "Ismingiz",
+		"email": "Email",
+		"phone": "Telefon",
+		"subject": "Mavzu",
+		"message": "Xabar",
+		"send": "Yuborish",
+		"officeHours": "Ish vaqti",
+		"location": "Joylashuv",
+		"socialMedia": "Ijtimoiy tarmoqlar"
+	},
+	"company": {
+		"title": "Kompaniya haqida",
+		"subtitle": "Hikvision O'zbekistondagi rasmiy hamkori",
+		"aboutUs": "Biz haqimizda",
+		"aboutText": "Biz 2020 yildan beri Hikvision kompaniyasining rasmiy hamkoriyiz va O'zbekiston bozorida yuqori sifatli xavfsizlik tizimlarini taqdim etamiz.",
+		"mission": "Bizning missiyamiz",
+		"missionText": "Zamonaviy texnologiyalar yordamida mijozlarimizga ishonchli va samarali xavfsizlik yechimlarini taqdim etish.",
+		"vision": "Bizning ko'z o'ngimiz",
+		"visionText": "O'zbekistonda eng yetakchi xavfsizlik tizimlari yetkazib beruvchisi bo'lish.",
+		"values": "Qadriyatlarimiz",
+		"quality": "Sifat",
+		"qualityText": "Faqat yuqori sifatli mahsulotlar",
+		"service": "Xizmat",
+		"serviceText": "Mijozlarga professional xizmat",
+		"innovation": "Innovatsiya",
+		"innovationText": "Eng so'nggi texnologiyalar",
+		"team": "Bizning jamoa",
+		"experience": "yillik tajriba",
+		"projects": "muvaffaqiyatli loyiha",
+		"clients": "mamnun mijoz"
+	}
+}
