@@ -1,22 +1,26 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
-import { CompanyHero } from "@/components/sections/company-hero"
-import { CompanyAbout } from "@/components/sections/company-about"
-import { CompanyValues } from "@/components/sections/company-values"
-import { CompanyStats } from "@/components/sections/company-stats"
-import { CompanyTeam } from "@/components/sections/company-team"
+import { ContactForm } from '@/components/sections/contact-form'
+import { ContactHero } from '@/components/sections/contact-hero'
+import { ContactInfo } from '@/components/sections/contact-info'
+import { ContactMap } from '@/components/sections/contact-map'
+import { useTranslations } from 'next-intl'
 
 export default function AboutPage() {
-  const t = useTranslations("company")
+	const t = useTranslations('contactPage')
 
-  return (
-    <div className="min-h-screen bg-background">
-      <CompanyHero />
-      <CompanyAbout />
-      <CompanyValues />
-      <CompanyStats />
-      <CompanyTeam />
-    </div>
-  )
+	return (
+		<div className='min-h-screen bg-background'>
+			<ContactHero />
+
+			<div className='container mx-auto px-4 py-16'>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
+					<ContactForm />
+					<ContactInfo />
+				</div>
+			</div>
+
+			<ContactMap />
+		</div>
+	)
 }

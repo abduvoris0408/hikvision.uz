@@ -11,6 +11,7 @@ import { Geist_Mono, Work_Sans } from 'next/font/google'
 import type React from 'react'
 import { Suspense } from 'react'
 import '../globals.css'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
 const workSans = Work_Sans({
 	subsets: ['latin'],
@@ -65,7 +66,7 @@ export default async function LocaleLayout({
 			<Suspense
 				fallback={
 					<div>
-						Loading...
+						<LoadingSpinner/>
 					</div>
 				}
 			>

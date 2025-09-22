@@ -48,7 +48,7 @@ export function SplashScreen() {
 							initial={{ width: 0 }}
 							animate={{ width: '100%' }}
 							transition={{ duration: 1.5, delay: 0.5 }}
-							className='h-1 bg-secondary mt-4 rounded-full'
+							className='h-1 bg-red-500 mt-4 rounded-full'
 						/>
 					</motion.div>
 				</motion.div>

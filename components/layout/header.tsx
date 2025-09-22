@@ -85,7 +85,6 @@ export function Header() {
 								</div>
 							</div>
 						</Link>
-						
 					</div>
 
 					<nav className='flex flex-col p-4'>
@@ -164,8 +163,6 @@ export function Header() {
 								<Menu className='h-5 w-5' />
 							</Button>
 						</div>
-					
-						
 					</div>
 
 					{/* BELOW on mobile: Catalog + Search (stacked) */}
@@ -210,19 +207,21 @@ export function Header() {
 							>
 								Mahsulotlar
 							</Link>
-							<Link
-								href='/about'
-								className='text-sm hover:text-secondary-foreground/80 transition-colors'
-							>
-								Aloqa
-							</Link>
+
 							<Link
 								href='/portfolio'
 								className='text-sm hover:text-secondary-foreground/80 transition-colors'
 							>
 								Portfolio
 							</Link>
+							<Link
+								href='/about'
+								className='text-sm hover:text-secondary-foreground/80 transition-colors'
+							>
+								Aloqa
+							</Link>
 						</div>
+						
 						<CatalogDropdown
 							triggerText='Mahsulotlar katalogi'
 							className='bg-primary text-primary-foreground hover:bg-primary/90'
