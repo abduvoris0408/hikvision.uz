@@ -85,9 +85,7 @@ export function Header() {
 								</div>
 							</div>
 						</Link>
-						<div className='flex items-center gap-2'>
-							<LanguageSwitcher />
-						</div>
+						
 					</div>
 
 					<nav className='flex flex-col p-4'>
@@ -155,18 +153,19 @@ export function Header() {
 								</div>
 							</div>
 						</Link>
-						<Button
-							variant='ghost'
-							size='sm'
-							className='p-2'
-							onClick={() => setIsOpen(true)}
-						>
-							<Menu className='h-5 w-5' />
-						</Button>
-						{/* Right: language switcher (optional) */}
-						<div className='hidden lg:flex items-center gap-2'>
-							<LanguageSwitcher />s
+						<div className='flex items-center gap-2'>
+							<LanguageSwitcher />
+							<Button
+								variant='ghost'
+								size='sm'
+								className='p-2'
+								onClick={() => setIsOpen(true)}
+							>
+								<Menu className='h-5 w-5' />
+							</Button>
 						</div>
+					
+						
 					</div>
 
 					{/* BELOW on mobile: Catalog + Search (stacked) */}

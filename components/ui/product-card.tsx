@@ -3,11 +3,11 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { LazyImage } from '@/components/ui/lazy-image'
 import type { Product } from '@/lib/data/products'
 import { motion } from 'framer-motion'
 import { Heart, Star } from 'lucide-react'
 import { useLocale } from 'next-intl'
+import Image from 'next/image'
 import Link from 'next/link'
 import { memo, useState } from 'react'
 
@@ -46,29 +46,15 @@ export const ProductCard = memo(function ProductCard({
 				<Card className='group overflow-hidden hover:shadow-lg transition-all duration-300'>
 					<div className='flex'>
 						{/* Product Image */}
-						<div className='relative w-48 h-32 shrink-0'>
-							<LazyImage
-								src={
-									product.image ||
-									'/hikvision-bullet-camera-white-4mp.jpg'
-								}
+						<div className='relative w-48 h-32 shrink-0 overflow-hidden'>
+							<Image
+								src={product.image || '/placeholder.svg'}
 								alt={product.name}
 								fill
 								className='object-cover transition-transform duration-300 group-hover:scale-105'
 							/>
-							{/* Badges */}
-							<div className='absolute top-2 left-2 flex flex-col gap-1'>
-								{product.isNew && (
-									<Badge className='bg-green-500 hover:bg-green-600 text-white text-xs'>
-										YANGI
-									</Badge>
-								)}
-								{product.isBestSeller && (
-									<Badge className='bg-red-500 hover:bg-red-600 text-white text-xs'>
-										YANGI
-									</Badge>
-								)}
-							</div>
+							{/* Overlay */}
+							<div className='absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent' />
 						</div>
 
 						<CardContent className='flex-1 p-4 flex justify-between'>
@@ -169,13 +155,14 @@ export const ProductCard = memo(function ProductCard({
 				</Button>
 
 				{/* Product Image */}
-				<div className='relative h-48 overflow-hidden'>
-					<LazyImage
+				<div className='relative  h-48 w-full overflow-hidden'>
+					<Image
 						src={product.image || '/placeholder.svg'}
 						alt={product.name}
 						fill
 						className='object-cover transition-transform duration-300 group-hover:scale-105'
 					/>
+					<div className='absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent' />
 				</div>
 
 				<CardContent className='p-4 space-y-3'>
