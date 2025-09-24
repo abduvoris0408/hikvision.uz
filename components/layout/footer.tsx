@@ -74,7 +74,7 @@ export function Footer() {
 									href='tel:+998992134863'
 									className='font-semibold'
 								>
-									+998 99 213 48 63
+									+998952522222
 								</a>
 							</div>
 							<div className='text-sm text-muted-foreground text-center md:text-left'>

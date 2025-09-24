@@ -56,7 +56,7 @@ export function HeroSection() {
 	}
 
 	return (
-		<section className='relative h-[650px] md:h-[810px] overflow-hidden bg-gradient-to-r from-primary/10 to-secondary/10'>
+		<section className='relative h-[650px] md:h-[600px] overflow-hidden bg-gradient-to-r from-primary/10 to-secondary/10'>
 			<AnimatePresence mode='wait'>
 				<motion.div
 					key={currentSlide}
