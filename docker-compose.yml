@@ -23,9 +23,9 @@ services:
     depends_on:
       - nextjs_frontend
     networks:
-      - frontend_network
+      - production_network_dev
     restart: always
 
 networks:
-  frontend_network:
+  production_network_dev:
     driver: bridge
