@@ -3,7 +3,7 @@ version: "3"
 services:
   nextjs_frontend:
     build:
-      context: ./HIKVISIONPG-FRONTEND-WEB-SITE
+      context: .
     image: nextjs_hikvision_frontend
     container_name: nextjs_frontend
     expose:
