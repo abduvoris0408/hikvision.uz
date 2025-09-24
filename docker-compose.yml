@@ -9,8 +9,9 @@ services:
     expose:
       - "3000"
     networks:
-      - frontend_network
+      - production_network_dev
     restart: always
+
 
   nginx_frontend:
     image: nginx:alpine
