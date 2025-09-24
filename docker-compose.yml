@@ -28,4 +28,4 @@ services:
 
 networks:
   production_network_dev:
-    driver: bridge
+    external: true
