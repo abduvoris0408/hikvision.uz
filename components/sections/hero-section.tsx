@@ -93,7 +93,7 @@ export function HeroSection() {
 
 	return (
 		<section
-			className={`relative min-h-screen overflow-hidden bg-gradient-to-br ${slide.gradient} transition-all duration-700`}
+			className={`relative overflow-hidden bg-gradient-to-br ${slide.gradient} transition-all duration-700`}
 		>
 			{/* Background Decorations */}
 			<div className='absolute inset-0'>

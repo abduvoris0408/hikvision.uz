@@ -148,70 +148,75 @@ export function Header() {
 			</div>
 
 			{/* Mobile Menu Sheet - Enhanced with modern colors */}
-		<Sheet open={isOpen} onOpenChange={setIsOpen}>
+
+
+<Sheet open={isOpen} onOpenChange={setIsOpen}>
   <SheetContent
     side="left"
-    className="w-[320px] p-0 bg-white text-slate-900 border-r border-slate-200 shadow-xl"
+    className="w-[320px] p-0 bg-white text-slate-900 border-r border-slate-200 shadow-xl flex flex-col"
   >
-    <div className="relative z-10">
-      <div className="p-6 border-b border-slate-200 bg-slate-50">
-        <Logo />
-      </div>
-      <nav className="flex flex-col p-6" role="navigation">
-        {navigation.map((item, index) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={`group relative py-4 px-5 text-base font-medium rounded-xl transition-all duration-300 transform hover:translate-x-2 overflow-hidden ${
-              index !== navigation.length - 1 ? "mb-2" : ""
-            } hover:bg-red-50 hover:text-red-600`}
-            onClick={() => setIsOpen(false)}
-            aria-label={item.ariaLabel}
+    {/* Header */}
+    <div className="p-6 border-b border-slate-200 bg-slate-50">
+      <Logo />
+    </div>
+
+    {/* Navigation */}
+    <nav className="flex flex-col p-6 flex-1" role="navigation">
+      {navigation.map((item, index) => (
+        <Link
+          key={item.name}
+          href={item.href}
+          className={`group relative py-4 px-5 text-base font-medium rounded-xl transition-all duration-300 transform hover:translate-x-2 overflow-hidden ${
+            index !== navigation.length - 1 ? "mb-2" : ""
+          } hover:bg-red-50 hover:text-red-600`}
+          onClick={() => setIsOpen(false)}
+          aria-label={item.ariaLabel}
+        >
+          <span className="relative z-10">{item.name}</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-200/0 to-red-100 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+          <div className="absolute left-0 top-1/2 w-1 h-0 bg-red-500 rounded-full group-hover:h-8 transform -translate-y-1/2 transition-all duration-300"></div>
+        </Link>
+      ))}
+    </nav>
+
+    {/* Footer */}
+    <div className="p-6 border-t border-slate-200 bg-slate-50">
+      <div className="space-y-5">
+        {contactInfo.map(({ icon: Icon, text, ariaLabel }, index) => (
+          <div
+            key={index}
+            className="flex items-center gap-4 text-sm group hover:bg-red-50 p-3 rounded-lg transition-all duration-300"
           >
-            <span className="relative z-10">{item.name}</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-red-200/0 to-red-100 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-            <div className="absolute left-0 top-1/2 w-1 h-0 bg-red-500 rounded-full group-hover:h-8 transform -translate-y-1/2 transition-all duration-300"></div>
-          </Link>
-        ))}
-      </nav>
-
-      <div className="mt-auto p-6 border-t border-slate-200 bg-slate-50">
-        <div className="space-y-5">
-          {contactInfo.map(({ icon: Icon, text, ariaLabel }, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-4 text-sm group hover:bg-red-50 p-3 rounded-lg transition-all duration-300"
+            <Icon
+              className="h-5 w-5 text-slate-600 group-hover:text-red-500 transition-colors duration-300"
+              aria-hidden="true"
+            />
+            <span
+              className="text-slate-700 group-hover:text-red-600 transition-colors duration-300"
+              aria-label={ariaLabel}
             >
-              <Icon
-                className="h-5 w-5 text-slate-600 group-hover:text-red-500 transition-colors duration-300"
-                aria-hidden="true"
-              />
-              <span
-                className="text-slate-700 group-hover:text-red-600 transition-colors duration-300"
-                aria-label={ariaLabel}
-              >
-                {text}
-              </span>
-            </div>
-          ))}
-
-          <div className="flex items-center gap-4 pt-4 border-t border-slate-200">
-            {socialLinks.map(({ name, href, ariaLabel }) => (
-              <Link
-                key={name}
-                href={href}
-                className="px-4 py-2 text-slate-500 hover:text-red-600 font-medium transition-all duration-300 rounded-lg hover:bg-red-50 transform hover:scale-105"
-                aria-label={ariaLabel}
-              >
-                {name}
-              </Link>
-            ))}
+              {text}
+            </span>
           </div>
+        ))}
+
+        <div className="flex flex-col items-center gap-4 pt-4 border-t border-slate-200">
+          {socialLinks.map(({ name, href, ariaLabel }) => (
+            <Link
+              key={name}
+              href={href}
+              className="px-4 py-2 text-slate-500 hover:text-red-600 font-medium transition-all duration-300 rounded-lg hover:bg-red-50 transform hover:scale-105"
+              aria-label={ariaLabel}
+            >
+              {name}
+            </Link>
+          ))}
         </div>
       </div>
     </div>
   </SheetContent>
 </Sheet>
+
 
 
 			{/* Main Navigation Bar - Enhanced with modern colors */}

@@ -20,6 +20,7 @@ import {
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
+import { OrderModal } from '../ui/OrderModal'
 
 interface ProductDetailProps {
 	product: Product
@@ -30,6 +31,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 	const [isLiked, setIsLiked] = useState(false)
 	const [quantity, setQuantity] = useState(1)
+	const [isOrderModalOpen, setIsOrderModalOpen] = useState(false) // Modal holati
 
 	const formatPrice = (price: number) => {
 		return new Intl.NumberFormat('uz-UZ').format(price) + " so'm"
@@ -49,6 +51,11 @@ export function ProductDetail({ product }: ProductDetailProps) {
 	}
 
 	const images = product.images || [product.image || '/placeholder.svg']
+
+	// Savatga qo'shish tugmasi bosilganda
+	const handleAddToCart = () => {
+		setIsOrderModalOpen(true)
+	}
 
 	return (
 		<div className='space-y-8'>
@@ -241,7 +248,11 @@ export function ProductDetail({ product }: ProductDetailProps) {
 						</div>
 
 						<div className='flex gap-3'>
-							<Button className='flex-1' size='lg'>
+							<Button
+								className='flex-1'
+								size='lg'
+								onClick={handleAddToCart} // Modal ochish funksiyasi
+							>
 								<ShoppingCart className='h-5 w-5 mr-2' />
 								Savatga qo'shish
 							</Button>
@@ -522,6 +533,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
 					</Tabs>
 				</CardContent>
 			</Card>
+
+			{/* Order Modal */}
+			<OrderModal
+				isOpen={isOrderModalOpen}
+				onClose={() => setIsOrderModalOpen(false)}
+				product={product}
+				initialQuantity={quantity}
+			/>
 		</div>
 	)
 }
