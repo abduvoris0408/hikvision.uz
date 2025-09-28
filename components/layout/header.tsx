@@ -430,15 +430,15 @@ export function Header() {
 			className='flex items-center group'
 			aria-label={t('header.logo.title')}
 		>
-			<div className='relative'>
+			<div className=''>
 				{/* Glow effect behind logo */}
-				<div className='absolute -inset-2 bg-gradient-to-r from-red-500/20 to-purple-500/20 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500'></div>
+				{/* <div className='absolute -inset-2 bg-gradient-to-r from-red-500/20 to-purple-500/20 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500'></div> */}
 
 				<div className='relative flex items-center gap-3'>
 					{/* Logo icon with gradient */}
-					<div className='relative'>
+					{/* <div className='relative'>
 						<div className='absolute inset-0 bg-red-500/30 rounded-xl animate-pulse opacity-0 group-hover:opacity-100'></div>
-					</div>
+					</div> */}
 
 					<div className='flex flex-col leading-tight'>
 						<div className='font-bold tracking-wide text-2xl md:text-3xl'>
@@ -446,7 +446,7 @@ export function Header() {
 							<span className='text-slate-700 ml-1'>VISION</span>
 						</div>
 						<div className='flex items-center gap-1 mt-1'>
-							<span className='text-xs text-slate-600 font-medium'>
+							<span className='text-[10px] text-slate-600 font-medium'>
 								{t('header.logo.tagline')}
 							</span>
 						</div>
@@ -618,12 +618,12 @@ export function Header() {
 			</Sheet>
 
 			{/* Main Navigation Bar */}
-			<div className='relative py-5 bg-gradient-to-r from-transparent to-red-600/5'>
-				<div className='container mx-auto px-6'>
+			<div className='sticky top-0 py-5 bg-gradient-to-r from-transparent to-red-600/5'>
+				<div className='container mx-auto px-4'>
 					{/* Mobile Layout */}
 					<div className='flex md:hidden items-center justify-between'>
 						<Logo />
-						<div className='flex items-center gap-3'>
+						<div className='flex items-center gap-2'>
 							<WishlistButton isMobile={true} />
 							<CartButton isMobile={true} />
 							<LanguageSwitcher />
