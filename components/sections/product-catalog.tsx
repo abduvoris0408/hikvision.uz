@@ -6,22 +6,18 @@ import { ProductCatalogSkeleton } from '@/components/ui/product-catalog-skeleton
 import { ProductFilters } from '@/components/ui/product-filters'
 import { ProductSearch } from '@/components/ui/product-search'
 import { ProductSort } from '@/components/ui/product-sort'
-import type { Product } from '@/lib/data/products'
+
 import { useDebounce } from '@/lib/hooks/use-debounce'
 import { useProducts } from '@/lib/hooks/use-products'
+import { Product, ProductCategory, SortOption } from '@/types/product'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import { Filter, Grid, List } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useCallback, useMemo, useState } from 'react'
 
-// Define ProductCategory type locally if not exported from products module
-type ProductCategory = string
-// import SortOption from its correct location or define it here if needed
-type SortOption = 'name' | 'price-low' | 'price-high' | 'rating' | 'newest'
-
 export function ProductCatalog() {
 	const t = useTranslations('products')
-	const { products, categories, loading } = useProducts()
 
 	const [searchQuery, setSearchQuery] = useState('')
 	const [selectedCategory, setSelectedCategory] = useState<
@@ -33,6 +29,17 @@ export function ProductCatalog() {
 	const [showFilters, setShowFilters] = useState(false)
 
 	const debouncedSearchQuery = useDebounce(searchQuery, 300)
+
+	const {
+		products: allProducts,
+		categories,
+		loading,
+		error,
+	} = useProducts({
+		limit: 100,
+		search: debouncedSearchQuery || undefined,
+		category: selectedCategory !== 'all' ? selectedCategory : undefined,
+	})
 
 	const filterProducts = useCallback(
 		(
@@ -91,14 +98,14 @@ export function ProductCatalog() {
 
 	const filteredProducts = useMemo(() => {
 		const filtered = filterProducts(
-			products,
+			allProducts,
 			debouncedSearchQuery,
 			selectedCategory,
 			priceRange
 		)
 		return sortProducts(filtered, sortBy)
 	}, [
-		products,
+		allProducts,
 		debouncedSearchQuery,
 		selectedCategory,
 		priceRange,
@@ -106,6 +113,18 @@ export function ProductCatalog() {
 		filterProducts,
 		sortProducts,
 	])
+
+	// Create unique products to avoid duplicate keys
+	const uniqueFilteredProducts = useMemo(() => {
+		const uniqueMap = new Map<string, Product>()
+		filteredProducts.forEach(product => {
+			const key = `${product.id}-${product.name}-${product.category}`
+			if (!uniqueMap.has(key)) {
+				uniqueMap.set(key, product)
+			}
+		})
+		return Array.from(uniqueMap.values())
+	}, [filteredProducts])
 
 	const handleClearFilters = useCallback(() => {
 		setSearchQuery('')
@@ -121,15 +140,31 @@ export function ProductCatalog() {
 		return <ProductCatalogSkeleton />
 	}
 
+	if (error) {
+		return (
+			<div className='text-center py-12'>
+				<div className='text-destructive mb-4'>
+					Xatolik yuz berdi: {error}
+				</div>
+				<Button onClick={() => window.location.reload()}>
+					Qayta yuklash
+				</Button>
+			</div>
+		)
+	}
+
 	return (
 		<div className='w-full space-y-6'>
 			{/* Search and Controls */}
 			<div className='flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:gap-4 lg:items-center lg:justify-between'>
 				<div className='w-full max-w-md'>
-					<ProductSearch
+					{/* <ProductSearch
 						value={searchQuery}
 						onChange={setSearchQuery}
-					/>
+					/> */}
+					<h1 className='text-2xl md:text-3xl font-bold text-foreground mb-4'>
+							Hikvision Mahsulotlari
+						</h1>
 				</div>
 
 				<div className='flex flex-wrap items-center gap-3'>
@@ -210,7 +245,13 @@ export function ProductCatalog() {
 						)}
 						<div className='p-4 lg:p-0'>
 							<ProductFilters
-								categories={categories}
+								categories={categories.map((cat: string) => ({
+									id: cat as ProductCategory,
+									name: cat,
+									count: allProducts.filter(
+										(p: Product) => p.category === cat
+									).length,
+								}))}
 								selectedCategory={selectedCategory}
 								onCategoryChange={setSelectedCategory}
 								priceRange={priceRange}
@@ -238,27 +279,29 @@ export function ProductCatalog() {
 				}
               `}
 						>
-							{filteredProducts.map((product: Product) => (
-								<motion.div
-									key={product.id}
-									layout
-									initial={{ opacity: 0, scale: 0.9 }}
-									animate={{ opacity: 1, scale: 1 }}
-									transition={{ duration: 0.2 }}
-									className={`
+							{uniqueFilteredProducts.map(
+								(product: Product, index: number) => (
+									<motion.div
+										key={`${product.id}-${index}-${product.name}`}
+										layout
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.2 }}
+										className={`
                     ${viewMode === 'list' ? 'w-full' : ''}
                   `}
-								>
-									<ProductCard
-										product={product}
-										viewMode={viewMode}
-									/>
-								</motion.div>
-							))}
+									>
+										<ProductCard
+											product={product}
+											viewMode={viewMode}
+										/>
+									</motion.div>
+								)
+							)}
 						</motion.div>
 					</AnimatePresence>
 
-					{filteredProducts.length === 0 && (
+					{uniqueFilteredProducts.length === 0 && (
 						<div className='text-center py-12'>
 							<div className='text-muted-foreground mb-4'>
 								{t('noProducts')}

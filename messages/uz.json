@@ -6,12 +6,7 @@
 		"about": "Aloqa",
 		"portfolio": "Portfolio"
 	},
-	"hero": {
-		"title": "Professional xavfsizlik yechimlari",
-		"subtitle": "Hikvision O'zbekistondagi rasmiy hamkori",
-		"description": "Eng so'nggi texnologiyalar asosida yaratilgan video kuzatuv tizimlari, IP kameralar va xavfsizlik yechimlari",
-		"cta": "Batafsil"
-	},
+
 	"contact": {
 		"phone": "Telefon:",
 		"address": "Bizning manzil:",
@@ -22,7 +17,8 @@
 	"products": {
 		"title": "Mahsulotlar",
 		"description": "Eng mashhur va ishonchli xavfsizlik tizimlari va uskunalari",
-		"bestSellers": "Eng yaxshi sotuvchilar",
+		"categories": "Kategoriyalar",
+		"featured": "Eng yaxshi sotuvchilar",
 		"newProducts": "Yangi mahsulotlar",
 		"showMore": "Ko‘proq ko‘rsatish",
 		"noProducts": "Mahsulotlar topilmadi",
@@ -103,5 +99,79 @@
 		"experience": "yillik tajriba",
 		"projects": "muvaffaqiyatli loyiha",
 		"clients": "mamnun mijoz"
+	},
+	"header": {
+		"logo": {
+			"title": "HIKVISION",
+			"tagline": "O'zbekistondagi rasmiy hamkori"
+		},
+		"nav": {
+			"home": "Bosh sahifa",
+			"products": "Mahsulotlar",
+			"portfolio": "Portfolio",
+			"contact": "Aloqa"
+		},
+		"social": {
+			"facebook": "Facebook",
+			"instagram": "Instagram",
+			"whatsapp": "WhatsApp"
+		},
+		"contact": {
+			"phone": "+998952522222",
+			"address": "Toshkent, Chilonzor tumani",
+			"hours": "Dush-Juma: 9:00-18:00"
+		},
+		"catalog": {
+			"trigger": "Mahsulotlar katalogi"
+		},
+		"search": {
+			"placeholder": "Mahsulotlarni qidiring..."
+		},
+		"cart": {
+			"aria": "Savatcha — {count} ta mahsulot",
+			"items": "{count} ta mahsulot"
+		},
+		"wishlist": {
+			"aria": "Xohlaganlar ro'yxati — {count} ta",
+			"items": "{count} ta"
+		},
+		"buttons": {
+			"open_menu": "Menyu ochish"
+		}
+	},
+	"hero": {
+		"badge": "Professional Security Solutions",
+		"slides": [
+			{
+				"title": "Video kuzatuv kameralari",
+				"subtitle": "Hikvision videokuzatuv tizimlari, jumladan, xavfsizlik kameralari ishlab chiqaruvchi yetakchi kompaniyalardan biri hisoblanadi. Eng yuqori sifat va ishonchlilik.",
+				"cta": "MAHSULOTLARNI KO'RING",
+				"features": ["4K Ultra HD", "AI Analytics", "Night Vision"]
+			},
+			{
+				"title": "Professional xavfsizlik yechimlari",
+				"subtitle": "Eng so'nggi texnologiyalar asosida yaratilgan IP kameralar, NVR tizimlari va boshqa xavfsizlik uskunalari. To'liq xavfsizlik ekotizimi.",
+				"cta": "YECHIMLARNI O'RGANING",
+				"features": ["IP Technology", "Cloud Storage", "Remote Access"]
+			},
+			{
+				"title": "Interkomlar va turniketlar",
+				"subtitle": "Zamonaviy kirish nazorati tizimlari, video interkomlar va avtomatik turniketlar. Biometrik autentifikatsiya va Sun'iy intellekt texnologiyalari.",
+				"cta": "TEXNOLOGIYANI SINAB KO'RING",
+				"features": [
+					"Face Recognition",
+					"Biometric Access",
+					"Smart Control"
+				]
+			}
+		],
+		"stats": [
+			{ "label": "Xavfsizlik darajasi", "value": "99.9%" },
+			{ "label": "Sertifikatlangan", "value": "500+" },
+			{ "label": "Mijozlar baholashi", "value": "4.9/5" }
+		],
+		"indicators": {
+			"aria": "Slaydlar indikatori"
+		}
 	}
 }

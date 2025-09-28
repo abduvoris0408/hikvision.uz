@@ -2,19 +2,13 @@ import { ContactSection } from '@/components/sections/contact-section'
 import { FeaturesSection } from '@/components/sections/features-section'
 import { HeroSection } from '@/components/sections/hero-section'
 import { ProductShowcase } from '@/components/sections/product-showcase'
-import {
-	HeroSkeleton,
-	ProductCardSkeleton,
-} from '@/components/ui/loading-skeleton'
+import { ProductCardSkeleton } from '@/components/ui/loading-skeleton'
 import { Suspense } from 'react'
 
 export default function HomePage() {
 	return (
-		<div className='space-y-0'>
-			<Suspense fallback={<HeroSkeleton />}>
-				<HeroSection />
-			</Suspense>
-
+		<div>
+			<HeroSection />
 			<FeaturesSection />
 
 			<Suspense

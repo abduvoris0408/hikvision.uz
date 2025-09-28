@@ -1,107 +1,176 @@
 {
-  "navigation": {
-    "home": "Home",
-    "products": "Products",
-    "catalog": "Catalog",
-    "about": "Contact",
-    "portfolio": "Portfolio"
-  },
-  "hero": {
-    "title": "Professional security solutions",
-    "subtitle": "Official Hikvision partner in Uzbekistan",
-    "description": "State-of-the-art video surveillance systems, IP cameras and security solutions",
-    "cta": "Learn more"
-  },
-  "contact": {
-    "phone": "Phone:",
-    "address": "Our address:",
-    "workTime": "Working hours:",
-    "workHours": "Weekdays from 09:00 to 19:00",
-    "addressText": "Tashkent city, Chilanzar district, Arnasoy street 7A"
-  },
-  "products": {
-    "title": "Products",
-    "description": "The most popular and reliable security systems and equipment",
-    "bestSellers": "Best sellers",
-    "newProducts": "New products",
-    "showMore": "Show more",
-    "noProducts": "No products found",
-    "clearFilters": "Clear filters",
-    "filters": "Filters",
-    "features": "Product features",
-    "priceRange": "Price range",
-    "allCategories": "All categories",
-    "searchPlaceholder": "Search products or models...",
-    "sortBy": "Sort by",
-    "sortByName": "By name",
-    "sortByPriceLow": "Price: low to high",
-    "sortByPriceHigh": "Price: high to low",
-    "sortByRating": "By rating",
-    "sortByNewest": "Newest first",
-    "categoriesTitle": "Categories",
-    "categoryNames": {
-      "cameras": "Cameras",
-      "intercoms": "Intercoms",
-      "turnstiles": "Turnstiles"
-    }
-  },
-  "product": {
-    "relatedProducts": "Related products",
-    "details": "Product details",
-    "description": "About this product",
-    "specifications": "Specifications",
-    "reviews": "Reviews",
-    "related": "Related products",
-    "addToCart": "Add to cart",
-    "inStock": "In stock",
-    "outOfStock": "Out of stock",
-    "price": "Price",
-    "quantity": "Quantity"
-  },
-  "features": {
-    "fastDelivery": "Fast delivery",
-    "fastDeliveryDesc": "We usually deliver within one day",
-    "support": "24/7 support",
-    "supportDesc": "Our phones are always available",
-    "guarantee": "100% guarantee",
-    "guaranteeDesc": "All our products are covered by warranty",
-    "quality": "Convenient payment",
-    "qualityDesc": "Payment by transfer or cash"
-  },
-  "contactPage": {
-    "title": "Contact us",
-    "subtitle": "Have questions? We are ready to help",
-    "getInTouch": "Get in touch",
-    "contactForm": "Contact form",
-    "name": "Your name",
-    "email": "Email",
-    "phone": "Phone",
-    "subject": "Subject",
-    "message": "Message",
-    "send": "Send",
-    "officeHours": "Office hours",
-    "location": "Location",
-    "socialMedia": "Social media"
-  },
-  "company": {
-    "title": "About the company",
-    "subtitle": "Official Hikvision partner in Uzbekistan",
-    "aboutUs": "About us",
-    "aboutText": "We have been an official Hikvision partner since 2020 and provide high-quality security systems on the Uzbekistan market.",
-    "mission": "Our mission",
-    "missionText": "To provide clients with reliable and effective security solutions using modern technologies.",
-    "vision": "Our vision",
-    "visionText": "To become the leading supplier of security systems in Uzbekistan.",
-    "values": "Our values",
-    "quality": "Quality",
-    "qualityText": "Only high-quality products",
-    "service": "Service",
-    "serviceText": "Professional customer service",
-    "innovation": "Innovation",
-    "innovationText": "Latest technologies",
-    "team": "Our team",
-    "experience": "years of experience",
-    "projects": "successful projects",
-    "clients": "satisfied clients"
-  }
+	"navigation": {
+		"home": "Home",
+		"products": "Products",
+		"catalog": "Catalog",
+		"about": "Contact",
+		"portfolio": "Portfolio"
+	},
+
+	"contact": {
+		"phone": "Phone:",
+		"address": "Our address:",
+		"workTime": "Working hours:",
+		"workHours": "Weekdays from 09:00 to 19:00",
+		"addressText": "Tashkent city, Chilanzar district, Arnasoy street 7A"
+	},
+	"products": {
+		"title": "Products",
+		"description": "The most popular and reliable security systems and equipment",
+		"categories": "Categories",
+		"featured": "Best sellers",
+		"newProducts": "New products",
+		"showMore": "Show more",
+		"noProducts": "No products found",
+		"clearFilters": "Clear filters",
+		"filters": "Filters",
+		"features": "Product features",
+		"priceRange": "Price range",
+		"allCategories": "All categories",
+		"searchPlaceholder": "Search products or models...",
+		"sortBy": "Sort by",
+		"sortByName": "By name",
+		"sortByPriceLow": "Price: low to high",
+		"sortByPriceHigh": "Price: high to low",
+		"sortByRating": "By rating",
+		"sortByNewest": "Newest first",
+		"categoriesTitle": "Categories",
+		"categoryNames": {
+			"cameras": "Cameras",
+			"intercoms": "Intercoms",
+			"turnstiles": "Turnstiles"
+		}
+	},
+	"product": {
+		"relatedProducts": "Related products",
+		"details": "Product details",
+		"description": "About this product",
+		"specifications": "Specifications",
+		"reviews": "Reviews",
+		"related": "Related products",
+		"addToCart": "Add to cart",
+		"inStock": "In stock",
+		"outOfStock": "Out of stock",
+		"price": "Price",
+		"quantity": "Quantity"
+	},
+	"features": {
+		"fastDelivery": "Fast delivery",
+		"fastDeliveryDesc": "We usually deliver within one day",
+		"support": "24/7 support",
+		"supportDesc": "Our phones are always available",
+		"guarantee": "100% guarantee",
+		"guaranteeDesc": "All our products are covered by warranty",
+		"quality": "Convenient payment",
+		"qualityDesc": "Payment by transfer or cash"
+	},
+	"contactPage": {
+		"title": "Contact us",
+		"subtitle": "Have questions? We are ready to help",
+		"getInTouch": "Get in touch",
+		"contactForm": "Contact form",
+		"name": "Your name",
+		"email": "Email",
+		"phone": "Phone",
+		"subject": "Subject",
+		"message": "Message",
+		"send": "Send",
+		"officeHours": "Office hours",
+		"location": "Location",
+		"socialMedia": "Social media"
+	},
+	"company": {
+		"title": "About the company",
+		"subtitle": "Official Hikvision partner in Uzbekistan",
+		"aboutUs": "About us",
+		"aboutText": "We have been an official Hikvision partner since 2020 and provide high-quality security systems on the Uzbekistan market.",
+		"mission": "Our mission",
+		"missionText": "To provide clients with reliable and effective security solutions using modern technologies.",
+		"vision": "Our vision",
+		"visionText": "To become the leading supplier of security systems in Uzbekistan.",
+		"values": "Our values",
+		"quality": "Quality",
+		"qualityText": "Only high-quality products",
+		"service": "Service",
+		"serviceText": "Professional customer service",
+		"innovation": "Innovation",
+		"innovationText": "Latest technologies",
+		"team": "Our team",
+		"experience": "years of experience",
+		"projects": "successful projects",
+		"clients": "satisfied clients"
+	},
+
+	"header": {
+		"logo": {
+			"title": "HIKVISION",
+			"tagline": "Official partner in Uzbekistan"
+		},
+		"nav": {
+			"home": "Home",
+			"products": "Products",
+			"portfolio": "Portfolio",
+			"contact": "Contact"
+		},
+		"social": {
+			"facebook": "Facebook",
+			"instagram": "Instagram",
+			"whatsapp": "WhatsApp"
+		},
+		"contact": {
+			"phone": "+998952522222",
+			"address": "Tashkent, Chilonzor district",
+			"hours": "Mon-Fri: 9:00-18:00"
+		},
+		"catalog": {
+			"trigger": "Product catalog"
+		},
+		"search": {
+			"placeholder": "Search products..."
+		},
+		"cart": {
+			"items": "{count} items"
+		},
+		"wishlist": {
+			"items": "{count}"
+		},
+		"buttons": {
+			"open_menu": "Open menu"
+		}
+	},
+	"hero": {
+		"badge": "Professional Security Solutions",
+		"slides": [
+			{
+				"title": "Video surveillance cameras",
+				"subtitle": "Hikvision is one of the leading companies manufacturing video surveillance systems, including security cameras. Highest quality and reliability.",
+				"cta": "VIEW PRODUCTS",
+				"features": ["4K Ultra HD", "AI Analytics", "Night Vision"]
+			},
+			{
+				"title": "Professional security solutions",
+				"subtitle": "IP cameras, NVR systems and other security equipment built on cutting-edge technologies. A complete security ecosystem.",
+				"cta": "EXPLORE SOLUTIONS",
+				"features": ["IP Technology", "Cloud Storage", "Remote Access"]
+			},
+			{
+				"title": "Intercoms and turnstiles",
+				"subtitle": "Modern access control systems, video intercoms and automatic turnstiles. Biometric authentication and AI technologies.",
+				"cta": "TRY THE TECHNOLOGY",
+				"features": [
+					"Face Recognition",
+					"Biometric Access",
+					"Smart Control"
+				]
+			}
+		],
+		"stats": [
+			{ "label": "Security level", "value": "99.9%" },
+			{ "label": "Certified", "value": "500+" },
+			{ "label": "Customer rating", "value": "4.9/5" }
+		],
+		"indicators": {
+			"aria": "Slides indicator"
+		}
+	}
 }

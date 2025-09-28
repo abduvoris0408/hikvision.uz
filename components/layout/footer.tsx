@@ -170,11 +170,11 @@ export function Footer() {
 						© 2020-2025 Hikvision O'zbekiston. Tayyorlandi:{' '}
 						<a
 							className='text-secondary'
-							href='/'
+							href='https://abduvorismominovuz.vercel.app/'
 							target='_blank'
 							rel='noreferrer'
 						>
-							NDT team uz
+							Abduvoris Mo'minov
 						</a>
 					</p>
 				</div>

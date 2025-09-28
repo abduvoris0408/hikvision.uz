@@ -3,13 +3,19 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import ReviewsComponent from '@/components/ui/reviews'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { Product } from '@/lib/data/products'
+import { useCart } from '@/context/CartContext' // CartContext qo'shildi
+import { Product } from '@/types/product'
+
 import {
 	Award,
+	ChevronRight as BreadcrumbArrow,
+	Check,
 	ChevronLeft,
 	ChevronRight,
 	Heart,
+	Home,
 	Phone,
 	Share2,
 	Shield,
@@ -17,21 +23,67 @@ import {
 	Star,
 	Truck,
 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
-import { OrderModal } from '../ui/OrderModal'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 interface ProductDetailProps {
 	product: Product
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
-	const t = useTranslations('product')
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 	const [isLiked, setIsLiked] = useState(false)
 	const [quantity, setQuantity] = useState(1)
-	const [isOrderModalOpen, setIsOrderModalOpen] = useState(false) // Modal holati
+	const [productData, setProductData] = useState(product)
+
+	// CartContext dan funksiyalarni olish
+	const { cart, addToCart, cartCount } = useCart()
+
+	// Mahsulotning savatda borligini tekshirish
+	const isInCart = cart.some(
+		item => String(item.id) === String(productData.id)
+	)
+
+	// Product ma'lumotlarini yangilash uchun
+	const fetchProduct = async () => {
+		try {
+			const response = await fetch(
+				`https://hikvision-back.khayitovdev.uz/api/products/${product.id}/`
+			)
+			if (response.ok) {
+				const updatedProduct = await response.json()
+				console.log('API Response:', updatedProduct)
+				setProductData(updatedProduct)
+			}
+		} catch (error) {
+			console.error('Product yangilanmadi:', error)
+		}
+	}
+
+	// Component mount bo'lganda product ma'lumotlarini yuklash
+	useEffect(() => {
+		fetchProduct()
+	}, [product.id])
+
+	// Debug uchun productData ni kuzatish
+	useEffect(() => {
+		console.log('ProductData updated:', productData)
+		console.log('in_stock value:', productData.in_stock)
+		console.log('Cart count:', cartCount)
+		console.log('Is in cart:', isInCart)
+	}, [productData, cartCount, isInCart])
+
+	// Reviews dan o'rtacha rating hisoblash
+	const calculateAverageRating = (reviews: any[]) => {
+		if (!reviews || reviews.length === 0) return 0
+		const totalRating = reviews.reduce(
+			(sum, review) => sum + (review.rating || 0),
+			0
+		)
+		return Math.round((totalRating / reviews.length) * 10) / 10
+	}
 
 	const formatPrice = (price: number) => {
 		return new Intl.NumberFormat('uz-UZ').format(price) + " so'm"
@@ -50,54 +102,127 @@ export function ProductDetail({ product }: ProductDetailProps) {
 		))
 	}
 
-	const images = product.images || [product.image || '/placeholder.svg']
+	const images =
+		productData.images && productData.images.length > 0
+			? productData.images
+			: [productData.image || '/hikvision-camera.jpg']
 
-	// Savatga qo'shish tugmasi bosilganda
+	const handleToggleFavorite = () => {
+		setIsLiked(!isLiked)
+		if (!isLiked) {
+			toast.success("Mahsulot sevimlilarga qo'shildi!", {
+				description: productData.name,
+				duration: 3000,
+			})
+		} else {
+			toast.info('Mahsulot sevimlilardan olib tashlandi', {
+				description: productData.name,
+				duration: 3000,
+			})
+		}
+	}
+
+	const handleShare = async () => {
+		try {
+			const url = window.location.href
+			await navigator.clipboard.writeText(url)
+			toast.success('Havola nusxalandi!', {
+				description: 'Mahsulot havolasi clipboardga nusxalandi',
+				duration: 3000,
+			})
+		} catch (err) {
+			const textArea = document.createElement('textarea')
+			textArea.value = window.location.href
+			document.body.appendChild(textArea)
+			textArea.select()
+			document.execCommand('copy')
+			document.body.removeChild(textArea)
+
+			toast.success('Havola nusxalandi!', {
+				description: 'Mahsulot havolasi clipboardga nusxalandi',
+				duration: 3000,
+			})
+		}
+	}
+
+	// CartContext ishlatgan holda savatga qo'shish
 	const handleAddToCart = () => {
-		setIsOrderModalOpen(true)
+		try {
+			// CartContext orqali qo'shish
+			addToCart({
+				id: productData.id,
+				quantity: quantity,
+			})
+
+			toast.success("Mahsulot savatga qo'shildi!", {
+				description: `${productData.name} - ${quantity} dona`,
+				duration: 3000,
+			})
+
+			// Quantity ni reset qilish
+			setQuantity(1)
+		} catch (error) {
+			console.error('Error adding to cart:', error)
+			toast.error('Xatolik yuz berdi!', {
+				description: "Mahsulotni savatga qo'shishda xatolik yuz berdi",
+				duration: 3000,
+			})
+		}
+	}
+
+	const handleGoToCart = () => {
+		window.location.href = '/cart'
 	}
 
 	return (
 		<div className='space-y-8'>
-			{/* Breadcrumb */}
 			<nav className='flex items-center space-x-2 text-sm text-muted-foreground'>
-				<span>Bosh sahifa</span>
-				<span>/</span>
-				<span>Mahsulotlar</span>
-				<span>/</span>
-				<span className='text-foreground'>{product.name}</span>
+				<Link
+					href='/'
+					className='flex items-center hover:text-foreground transition-colors'
+				>
+					<Home className='h-4 w-4 mr-1' />
+					Bosh sahifa
+				</Link>
+				<BreadcrumbArrow className='h-4 w-4' />
+				<Link
+					href='/products'
+					className='hover:text-foreground transition-colors'
+				>
+					Mahsulotlar
+				</Link>
+				<BreadcrumbArrow className='h-4 w-4' />
+				<span className='text-foreground'>{productData.name}</span>
 			</nav>
 
 			<div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
 				{/* Product Images */}
 				<div className='space-y-4'>
-					{/* Main Image */}
 					<div className='relative aspect-square overflow-hidden rounded-lg bg-gray-100'>
 						<Image
 							src={
-								images[selectedImageIndex] || '/placeholder.svg'
+								images[selectedImageIndex] ||
+								'/placeholder.svg?height=400&width=400&query=hikvision security camera'
 							}
-							alt={product.name}
+							alt={productData.name}
 							fill
 							className='object-cover'
 							priority
 						/>
 
-						{/* Badges */}
 						<div className='absolute top-4 left-4 flex flex-col gap-2'>
-							{product.isNew && (
+							{productData.isNew && (
 								<Badge className='bg-green-500 hover:bg-green-600 text-white'>
 									YANGI
 								</Badge>
 							)}
-							{product.isBestSeller && (
+							{productData.isBestSeller && (
 								<Badge className='bg-red-500 hover:bg-red-600 text-white'>
-									YANGI
+									TOP
 								</Badge>
 							)}
 						</div>
 
-						{/* Navigation Arrows */}
 						{images.length > 1 && (
 							<>
 								<Button
@@ -132,7 +257,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
 						)}
 					</div>
 
-					{/* Thumbnail Images */}
 					{images.length > 1 && (
 						<div className='flex gap-2 overflow-x-auto'>
 							{images.map((image, index) => (
@@ -141,13 +265,16 @@ export function ProductDetail({ product }: ProductDetailProps) {
 									onClick={() => setSelectedImageIndex(index)}
 									className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
 										selectedImageIndex === index
-											? 'border-secondary'
-											: 'border-transparent'
+											? 'border-primary'
+											: 'border-transparent hover:border-border'
 									}`}
 								>
 									<Image
-										src={image || '/placeholder.svg'}
-										alt={`${product.name} ${index + 1}`}
+										src={
+											image ||
+											'/placeholder.svg?height=80&width=80&query=camera thumbnail'
+										}
+										alt={`${productData.name} ${index + 1}`}
 										fill
 										className='object-cover'
 									/>
@@ -161,62 +288,73 @@ export function ProductDetail({ product }: ProductDetailProps) {
 				<div className='space-y-6'>
 					<div>
 						<h1 className='text-3xl font-bold text-foreground mb-2'>
-							{product.name}
+							{productData.name}
 						</h1>
 						<p className='text-muted-foreground'>
-							{product.description}
+							{productData.description ||
+								productData.shortDescription}
 						</p>
 					</div>
 
-					{/* Rating */}
 					<div className='flex items-center gap-4'>
 						<div className='flex items-center gap-2'>
 							<div className='flex'>
-								{renderStars(product.rating)}
+								{renderStars(
+									calculateAverageRating(
+										productData.reviews || []
+									)
+								)}
 							</div>
 							<span className='text-sm text-muted-foreground'>
-								({product.reviewCount} fikr-mulohaza)
+								{calculateAverageRating(
+									productData.reviews || []
+								).toFixed(1)}
+								({(productData.reviews || []).length}{' '}
+								fikr-mulohaza)
 							</span>
 						</div>
-						<Badge variant='outline'>Mavjud</Badge>
+						<Badge
+							variant={
+								productData.in_stock ? 'default' : 'secondary'
+							}
+						>
+							{productData.in_stock ? 'Mavjud' : 'Tugagan'}
+						</Badge>
 					</div>
 
-					{/* Price */}
 					<div className='space-y-2'>
 						<div className='text-3xl font-bold text-red-600'>
-							{formatPrice(product.price)}
+							{formatPrice(productData.price)}
 						</div>
-						{product.originalPrice && (
+						{productData.originalPrice && (
 							<div className='text-lg text-muted-foreground line-through'>
-								{formatPrice(product.originalPrice)}
+								{formatPrice(productData.originalPrice)}
 							</div>
 						)}
 					</div>
 
-					{/* Key Features */}
 					<div className='space-y-3'>
 						<h3 className='font-semibold'>Asosiy xususiyatlar:</h3>
 						<ul className='space-y-2 text-sm'>
 							<li className='flex items-center gap-2'>
-								<div className='w-2 h-2 bg-secondary rounded-full' />
+								<Check className='w-4 h-4 text-green-500' />
 								4K Ultra HD sifat
 							</li>
 							<li className='flex items-center gap-2'>
-								<div className='w-2 h-2 bg-secondary rounded-full' />
+								<Check className='w-4 h-4 text-green-500' />
 								Tungi ko'rish funksiyasi
 							</li>
 							<li className='flex items-center gap-2'>
-								<div className='w-2 h-2 bg-secondary rounded-full' />
+								<Check className='w-4 h-4 text-green-500' />
 								IP67 himoya darajasi
 							</li>
 							<li className='flex items-center gap-2'>
-								<div className='w-2 h-2 bg-secondary rounded-full' />
-								2 yil kafolat
+								<Check className='w-4 h-4 text-green-500' />2
+								yil kafolat
 							</li>
 						</ul>
 					</div>
 
-					{/* Quantity and Actions */}
 					<div className='space-y-4'>
 						<div className='flex items-center gap-4'>
 							<label className='text-sm font-medium'>
@@ -230,6 +368,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 										setQuantity(Math.max(1, quantity - 1))
 									}
 									className='px-3'
+									disabled={!productData.in_stock}
 								>
 									-
 								</Button>
@@ -241,6 +380,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 									size='sm'
 									onClick={() => setQuantity(quantity + 1)}
 									className='px-3'
+									disabled={!productData.in_stock}
 								>
 									+
 								</Button>
@@ -248,18 +388,31 @@ export function ProductDetail({ product }: ProductDetailProps) {
 						</div>
 
 						<div className='flex gap-3'>
-							<Button
-								className='flex-1'
-								size='lg'
-								onClick={handleAddToCart} // Modal ochish funksiyasi
-							>
-								<ShoppingCart className='h-5 w-5 mr-2' />
-								Savatga qo'shish
-							</Button>
+							{isInCart ? (
+								<Button
+									className='flex-1'
+									size='lg'
+									onClick={handleGoToCart}
+									variant='outline'
+								>
+									<ShoppingCart className='h-5 w-5 mr-2' />
+									Savatga o'tish ({cartCount})
+								</Button>
+							) : (
+								<Button
+									className='flex-1'
+									size='lg'
+									onClick={handleAddToCart}
+									disabled={!productData.in_stock}
+								>
+									<ShoppingCart className='h-5 w-5 mr-2' />
+									Savatga qo'shish
+								</Button>
+							)}
 							<Button
 								variant='outline'
 								size='lg'
-								onClick={() => setIsLiked(!isLiked)}
+								onClick={handleToggleFavorite}
 							>
 								<Heart
 									className={`h-5 w-5 ${
@@ -269,7 +422,11 @@ export function ProductDetail({ product }: ProductDetailProps) {
 									}`}
 								/>
 							</Button>
-							<Button variant='outline' size='lg'>
+							<Button
+								variant='outline'
+								size='lg'
+								onClick={handleShare}
+							>
 								<Share2 className='h-5 w-5' />
 							</Button>
 						</div>
@@ -284,10 +441,9 @@ export function ProductDetail({ product }: ProductDetailProps) {
 						</Button>
 					</div>
 
-					{/* Trust Badges */}
 					<div className='grid grid-cols-3 gap-4 pt-6 border-t'>
 						<div className='text-center space-y-2'>
-							<Truck className='h-8 w-8 mx-auto text-secondary' />
+							<Truck className='h-8 w-8 mx-auto text-primary' />
 							<div className='text-sm font-medium'>
 								Tez yetkazib berish
 							</div>
@@ -296,7 +452,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 							</div>
 						</div>
 						<div className='text-center space-y-2'>
-							<Shield className='h-8 w-8 mx-auto text-secondary' />
+							<Shield className='h-8 w-8 mx-auto text-primary' />
 							<div className='text-sm font-medium'>
 								2 yil kafolat
 							</div>
@@ -305,7 +461,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 							</div>
 						</div>
 						<div className='text-center space-y-2'>
-							<Award className='h-8 w-8 mx-auto text-secondary' />
+							<Award className='h-8 w-8 mx-auto text-primary' />
 							<div className='text-sm font-medium'>
 								Sifat kafolati
 							</div>
@@ -317,16 +473,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
 				</div>
 			</div>
 
-			{/* Product Details Tabs */}
 			<Card>
 				<CardContent className='p-6'>
 					<Tabs defaultValue='description' className='w-full'>
-						<TabsList className='grid w-full grid-cols-4'>
+						<TabsList className='grid w-full grid-cols-3'>
 							<TabsTrigger value='description'>
 								Tavsif
-							</TabsTrigger>
-							<TabsTrigger value='specifications'>
-								Xususiyatlar
 							</TabsTrigger>
 							<TabsTrigger value='reviews'>Sharhlar</TabsTrigger>
 							<TabsTrigger value='delivery'>
@@ -342,7 +494,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
 								Mahsulot haqida
 							</h3>
 							<p className='text-muted-foreground leading-relaxed'>
-								{product.description ||
+								{productData.fullDescription ||
+									productData.description ||
 									"Bu mahsulot yuqori sifatli xavfsizlik kamerasi bo'lib, zamonaviy texnologiyalar bilan jihozlangan. 4K Ultra HD sifat, tungi ko'rish funksiyasi va IP67 himoya darajasi bilan jihozlangan."}
 							</p>
 							<div className='space-y-2'>
@@ -356,144 +509,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
 							</div>
 						</TabsContent>
 
-						<TabsContent value='specifications' className='mt-6'>
-							<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-								<div className='space-y-4'>
-									<h3 className='text-lg font-semibold'>
-										Texnik xususiyatlar
-									</h3>
-									<div className='space-y-3'>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Sensor turi:
-											</span>
-											<span>CMOS</span>
-										</div>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Ruxsat:
-											</span>
-											<span>4K (3840×2160)</span>
-										</div>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Ob'ektiv:
-											</span>
-											<span>2.8-12mm</span>
-										</div>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Tungi ko'rish:
-											</span>
-											<span>30m gacha</span>
-										</div>
-									</div>
-								</div>
-								<div className='space-y-4'>
-									<h3 className='text-lg font-semibold'>
-										Qo'shimcha ma'lumotlar
-									</h3>
-									<div className='space-y-3'>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Himoya darajasi:
-											</span>
-											<span>IP67</span>
-										</div>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Quvvat:
-											</span>
-											<span>12V DC</span>
-										</div>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												O'lcham:
-											</span>
-											<span>70×70×150mm</span>
-										</div>
-										<div className='flex justify-between py-2 border-b'>
-											<span className='text-muted-foreground'>
-												Og'irlik:
-											</span>
-											<span>450g</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</TabsContent>
-
-						<TabsContent value='reviews' className='mt-6 space-y-6'>
-							<div className='flex items-center justify-between'>
-								<h3 className='text-lg font-semibold'>
-									Mijozlar sharhlari
-								</h3>
-								<Button variant='outline'>Sharh yozish</Button>
-							</div>
-
-							<div className='space-y-4'>
-								{/* Sample Reviews */}
-								<Card>
-									<CardContent className='p-4'>
-										<div className='flex items-start gap-4'>
-											<div className='w-10 h-10 bg-secondary rounded-full flex items-center justify-center'>
-												<span className='text-sm font-medium'>
-													A
-												</span>
-											</div>
-											<div className='flex-1 space-y-2'>
-												<div className='flex items-center gap-2'>
-													<span className='font-medium'>
-														Aziz
-													</span>
-													<div className='flex'>
-														{renderStars(5)}
-													</div>
-												</div>
-												<p className='text-sm text-muted-foreground'>
-													Juda yaxshi kamera, sifati
-													zo'r. Tez yetkazib berishdi
-													va o'rnatishda yordam
-													berishdi.
-												</p>
-												<span className='text-xs text-muted-foreground'>
-													2 kun oldin
-												</span>
-											</div>
-										</div>
-									</CardContent>
-								</Card>
-
-								<Card>
-									<CardContent className='p-4'>
-										<div className='flex items-start gap-4'>
-											<div className='w-10 h-10 bg-secondary rounded-full flex items-center justify-center'>
-												<span className='text-sm font-medium'>
-													M
-												</span>
-											</div>
-											<div className='flex-1 space-y-2'>
-												<div className='flex items-center gap-2'>
-													<span className='font-medium'>
-														Murod
-													</span>
-													<div className='flex'>
-														{renderStars(4)}
-													</div>
-												</div>
-												<p className='text-sm text-muted-foreground'>
-													Narxi mos, sifati yaxshi.
-													Tungi ko'rish funksiyasi
-													juda yaxshi ishlaydi.
-												</p>
-												<span className='text-xs text-muted-foreground'>
-													1 hafta oldin
-												</span>
-											</div>
-										</div>
-									</CardContent>
-								</Card>
-							</div>
+						<TabsContent value='reviews' className='mt-6'>
+							<ReviewsComponent
+								productId={Number(productData.id)}
+								reviews={productData.reviews || []}
+								onReviewAdded={fetchProduct}
+							/>
 						</TabsContent>
 
 						<TabsContent
@@ -533,14 +554,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
 					</Tabs>
 				</CardContent>
 			</Card>
-
-			{/* Order Modal */}
-			<OrderModal
-				isOpen={isOrderModalOpen}
-				onClose={() => setIsOrderModalOpen(false)}
-				product={product}
-				initialQuantity={quantity}
-			/>
 		</div>
 	)
 }

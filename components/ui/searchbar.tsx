@@ -78,7 +78,7 @@ export function SearchBar({
 				{/* Input */}
 				<Input
 					type='text'
-					placeholder={placeholder}
+					
 					value={query}
 					onChange={e => setQuery(e.target.value)}
 					onKeyPress={handleKeyPress}

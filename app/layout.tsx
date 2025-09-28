@@ -1,4 +1,6 @@
 import { Toaster } from '@/components/ui/sonner'
+import { CartProvider } from '@/context/CartContext'
+import { WishlistProvider } from '@/context/wishlistcontext'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Geist_Mono, Work_Sans } from 'next/font/google'
@@ -30,10 +32,12 @@ export default function RootLayout({
 				className={`${workSans.variable} ${geistMono.variable} antialiased`}
 			>
 				{' '}
-				<NextTopLoader color='red' />
-				{children}
+				<NextTopLoader color='blue' />
+				<CartProvider>
+					<WishlistProvider>{children}</WishlistProvider>
+				</CartProvider>
 				<Analytics />
-				<Toaster richColors closeButton />
+				<Toaster closeButton position='top-center' />
 			</body>
 		</html>
 	)

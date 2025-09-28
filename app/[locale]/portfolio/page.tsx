@@ -147,17 +147,17 @@ const Portfolio = () => {
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50'>
 			{/* Hero Section */}
-			<section className='relative bg-gradient-to-r from-blue-200 via-blue-700 to-indigo-400 text-white py-8 overflow-hidden'>
-				<div className='absolute inset-0 bg-black/20'></div>
+			<section className='relative bg-gradient-to-r from-secondary/10 to-secondary/5  py-8 overflow-hidden'>
+
 				<div className='relative container mx-auto px-6'>
 					<div className='max-w-3xl mx-auto text-center'>
-						<Badge className='mb-4 bg-white/20 text-white border-white/30 hover:bg-white/30'>
+						<Badge className='mb-4 bg-purple-200/20 text-purple-500 border-purple-500/20 hover:bg-white/30'>
 							<Shield className='w-4 h-4 mr-2' />
 							Professional Security Solutions
 						</Badge>
 						<h1 className='text-4xl md:text-5xl font-bold mb-4 leading-tight'>
 							Bizning{' '}
-							<span className='text-blue-200'>Portfolio</span>
+							<span className='text-red-400'>Portfolio</span>
 						</h1>
 						<p className='text-lg md:text-xl opacity-90 mb-6 leading-relaxed'>
 							O'zbekiston bo'ylab 500+ muvaffaqiyatli loyihalar.
