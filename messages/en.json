@@ -15,6 +15,7 @@
 		"addressText": "Tashkent city, Chilanzar district, Arnasoy street 7A"
 	},
 	"products": {
+		"viewMore": "View details",
 		"title": "Products",
 		"description": "The most popular and reliable security systems and equipment",
 		"categories": "Categories",
@@ -172,5 +173,96 @@
 		"indicators": {
 			"aria": "Slides indicator"
 		}
+	},
+	"contactsection": {
+		"phone": "Phone",
+		"address": "Address",
+		"addressText": "Tashkent, Uzbekistan, Amir Temur Street, 10",
+		"workTime": "Working Hours",
+		"workHours": "Monday - Friday: 9:00 AM - 6:00 PM",
+		"sendMessage": "Send Message",
+		"namePlaceholder": "Your Name",
+		"emailPlaceholder": "Your Email",
+		"subjectPlaceholder": "Subject",
+		"messagePlaceholder": "Message",
+		"submitButton": "Send",
+		"introText": "Thank you for visiting our website. Please use the form below to contact us."
+	},
+
+	"footer": {
+		"company": {
+			"partnerText": "Official partner in Uzbekistan",
+			"askQuestion": "Have a question? Call us!",
+			"addressLabel": "We are located at",
+			"addressLine1": "Tashkent city, Chilanzar district,",
+			"addressLine2": "Arnasoy street 7A"
+		},
+		"productCategories": {
+			"title": "Links",
+			"warranty": "Warranty",
+			"turboHdCamera": "Turbo HD Camera",
+			"turboHdPtz": "Turbo HD PTZ"
+		},
+		"solutions": {
+			"title": "Solutions",
+			"dvr": "DVR (Digital Video Recorder)",
+			"ipCamera": "IP Camera",
+			"intercom": "Intercoms",
+			"biometric": "Biometric Systems"
+		},
+		"departments": {
+			"title": "Departments",
+			"turnstiles": "Turnstiles",
+			"poeManaged": "POE Managed Switch",
+			"poeUnmanaged": "POE Unmanaged Switch",
+			"nvr": "NVR (Network Video Recorder)"
+		},
+		"bottom": {
+			"madeBy": "Made by:"
+		}
+	},
+
+	"categories": {
+		"catalog": "Product Catalog",
+		"all": "All",
+		"turnstiles": "Turnstiles",
+		"accessControl": "Access Control Systems",
+		"cardSystems": "Card Systems",
+		"biometric": "Biometric Systems",
+		"password": "Password Systems",
+		"videoSurveillance": "Video Surveillance Systems",
+		"ipCameras": "IP Cameras",
+		"analogCameras": "Analog Cameras",
+		"recorders": "DVR/NVR",
+		"barriers": "Barrier Systems",
+		"zkteco": "ZKTeco Uzbekistan",
+		"fireAlarm": "Fire Alarm Systems",
+		"network": "Network Equipment",
+		"switches": "Switches",
+		"routers": "Routers",
+		"wifi": "Wi-Fi Equipment",
+		"accessories": "Accessories and Others",
+		"cables": "Cables",
+		"smartHome": "Smart Home",
+		"securityDoors": "Security Doors"
+	},
+	"stats": {
+		"projects": "Projects",
+		"installedCameras": "Installed Cameras",
+		"reliability": "Reliability",
+		"support": "Support"
+	},
+	"heroportfolio": {
+		"badge": "Professional Security Solutions",
+		"title1": "Our",
+		"title2": "Portfolio",
+		"description": "500+ successful projects across Uzbekistan. Solving complex security challenges with modern technologies.",
+		"watchVideo": "Watch Video",
+		"viewProjects": "View Projects"
+	},
+	"portfolio": {
+		"successProjects": "Successful Projects",
+		"successStories": "Success Stories",
+		"description": "Explore our projects across various industries"
 	}
 }

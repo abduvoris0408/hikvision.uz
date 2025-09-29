@@ -2,8 +2,20 @@
 
 import { mapApiProductToProduct } from '@/lib/utils/product-mapper'
 import { Product } from '@/types/product'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { hikvisionAPI } from '../data/api'
+
+/**
+ * Agar sizda allaqachon ProductsParams tipi mavjud bo'lsa,
+ * uni import qilavering yoki quyidagi tipni moslashtiring.
+ */
+type ProductsParams = {
+	search?: string
+	limit?: number
+	offset?: number
+	category?: string
+	in_stock?: boolean
+}
 
 interface UseProductsOptions extends ProductsParams {
 	limit?: number
@@ -19,8 +31,7 @@ interface UseProductsReturn {
 	hasPrevious: boolean
 	loadMore: () => void
 	refresh: () => void
-	search: string | undefined
-	getBestSellers?: any
+	search?: string
 }
 
 export function useProducts(
@@ -35,10 +46,14 @@ export function useProducts(
 	const [hasPrevious, setHasPrevious] = useState(false)
 	const [offset, setOffset] = useState(0)
 
+	// AbortController ref to cancel in-flight requests when options change
+	const abortCtrlRef = useRef<AbortController | null>(null)
+
+	// Normalize options: useMemo to avoid unnecessary re-renders
 	const memoizedOptions = useMemo(
 		() => ({
 			search: options.search,
-			limit: options.limit,
+			limit: options.limit ?? 20,
 			category: options.category,
 			in_stock: options.in_stock,
 		}),
@@ -47,107 +62,138 @@ export function useProducts(
 
 	const fetchProducts = useCallback(
 		async (params: ProductsParams = {}) => {
+			// Cancel previous request if still running
+			if (abortCtrlRef.current) {
+				try {
+					abortCtrlRef.current.abort()
+				} catch (e) {
+					// ignore
+				}
+			}
+
+			const controller = new AbortController()
+			abortCtrlRef.current = controller
+
 			try {
 				setLoading(true)
 				setError(null)
 
-				console.log('[v0] Fetching products with params:', {
+				const requestParams = {
+					limit: memoizedOptions.limit,
+					offset: params.offset ?? 0,
 					...memoizedOptions,
 					...params,
-				})
+				}
 
+				console.log('[useProducts] fetching with', requestParams)
+
+				// hikvisionAPI.getProducts should accept signal if it supports fetch/axios abort
 				const response = await hikvisionAPI.getProducts({
-					limit: memoizedOptions.limit || 20,
-					offset: params.offset || 0,
-					...memoizedOptions,
-					...params,
-				})
+					...requestParams,
+					signal: controller.signal,
+				} as any)
 
-				console.log('[v0] API response:', response)
-
-				if (!response || typeof response !== 'object') {
+				// Basic validation
+				if (
+					!response ||
+					typeof response !== 'object' ||
+					!Array.isArray(response.results)
+				) {
 					throw new Error('Invalid API response format')
 				}
 
-				if (!Array.isArray(response.results)) {
-					console.error(
-						'[v0] Invalid results format:',
-						response.results
-					)
-					throw new Error(
-						'API response does not contain valid results array'
-					)
-				}
+				// Map API products to our Product type and filter invalids
+				const mappedProducts: Product[] = response.results
+					.map(mapApiProductToProduct)
+					.filter((p): p is Product => !!p && !!p.id)
 
-				console.log('[v0] Raw products from API:', response.results)
-				const mappedProducts = response.results.map(
-					mapApiProductToProduct
-				)
-				console.log('[v0] Mapped products:', mappedProducts)
-
-				if (params.offset === 0) {
+				// If offset is 0 we replace, otherwise append
+				if ((params.offset ?? 0) === 0) {
 					setProducts(mappedProducts)
 				} else {
-					setProducts(prev => [...prev, ...mappedProducts])
-				}
-
-				setTotalCount(response.count || 0)
-				setHasNext(!!response.next)
-				setHasPrevious(!!response.previous)
-
-				if (response.results.length > 0) {
-					const uniqueCategories = Array.from(
-						new Set(
-							response.results
-								.filter(
-									product =>
-										product.category &&
-										product.category.name
-								)
-								.map(product => product.category!.name)
+					setProducts(prev => {
+						// avoid duplicates by id
+						const ids = new Set(prev.map(p => p.id))
+						const filteredToAdd = mappedProducts.filter(
+							p => !ids.has(p.id)
 						)
-					)
-					console.log('[v0] Extracted categories:', uniqueCategories)
-					setCategories(uniqueCategories)
+						return [...prev, ...filteredToAdd]
+					})
 				}
+
+				setTotalCount(response.count ?? mappedProducts.length)
+				setHasNext(Boolean(response.next))
+				setHasPrevious(Boolean(response.previous))
+
+				// Extract categories from mappedProducts (mapped form more reliable)
+				const uniqueCategories = Array.from(
+					new Set(
+						mappedProducts
+							.map(
+								p =>
+									(p as any).category?.name ??
+									(p as any).category
+							) // tolerate variations
+							.filter(Boolean)
+					)
+				) as string[]
+
+				setCategories(uniqueCategories)
 			} catch (err) {
+				// If aborted, don't treat as real error
+				if ((err as any)?.name === 'AbortError') {
+					console.log('[useProducts] fetch aborted')
+					return
+				}
+
 				const errorMessage =
 					err instanceof Error
 						? err.message
-						: 'An error occurred while fetching products'
+						: 'Error fetching products'
+				console.error('[useProducts] fetch error', err)
 				setError(errorMessage)
-				console.error('[v0] Error fetching products:', err)
-
 				setProducts([])
 				setCategories([])
+				setTotalCount(0)
+				setHasNext(false)
+				setHasPrevious(false)
 			} finally {
 				setLoading(false)
+				// clear controller if it's this request
+				if (abortCtrlRef.current === controller)
+					abortCtrlRef.current = null
 			}
 		},
 		[memoizedOptions]
 	)
 
-	const loadMore = useCallback(() => {
-		if (hasNext && !loading) {
-			const newOffset = offset + (memoizedOptions.limit || 20)
-			setOffset(newOffset)
-			fetchProducts({ offset: newOffset })
+	// Initial load and reload when memoizedOptions changes
+	useEffect(() => {
+		// reset offset when options change
+		setOffset(0)
+		fetchProducts({ offset: 0 })
+		// cleanup on unmount: abort pending request
+		return () => {
+			if (abortCtrlRef.current) {
+				try {
+					abortCtrlRef.current.abort()
+				} catch {}
+			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [memoizedOptions, fetchProducts]) // fetchProducts already depends on memoizedOptions
+
+	const loadMore = useCallback(() => {
+		if (!hasNext || loading) return
+		const newOffset = offset + (memoizedOptions.limit ?? 20)
+		setOffset(newOffset)
+		fetchProducts({ offset: newOffset })
 	}, [hasNext, loading, offset, memoizedOptions.limit, fetchProducts])
 
 	const refresh = useCallback(() => {
 		setOffset(0)
 		fetchProducts({ offset: 0 })
 	}, [fetchProducts])
-
-	useEffect(() => {
-		console.log('[v0] useEffect triggered with options:', memoizedOptions)
-		fetchProducts()
-	}, [memoizedOptions, fetchProducts])
-
-	useEffect(() => {
-		setOffset(0)
-	}, [memoizedOptions])
 
 	return {
 		products,
@@ -159,5 +205,6 @@ export function useProducts(
 		hasPrevious,
 		loadMore,
 		refresh,
+		search: memoizedOptions.search,
 	}
 }

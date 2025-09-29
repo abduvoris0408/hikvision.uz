@@ -22,6 +22,7 @@ import {
 	ShoppingCart,
 	Wifi,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
@@ -30,7 +31,7 @@ const Portfolio = () => {
 	const [animatedStats, setAnimatedStats] = useState<string[]>([])
 	const [isStatsVisible, setIsStatsVisible] = useState(false)
 	const statsRef = useRef(null)
-
+	const t = useTranslations()
 	// Animation function for counting numbers
 	const animateNumber = (finalNumber: string | number, duration = 2000) => {
 		return new Promise<void>(resolve => {
@@ -138,45 +139,44 @@ const Portfolio = () => {
 			: projects.filter(project => project.category === activeCategory)
 
 	const stats = [
-		{ number: '500+', label: 'Loyihalar', icon: Building2 },
-		{ number: '10,000+', label: "O'rnatilgan kameralar", icon: Camera },
-		{ number: '99.9%', label: 'Ishonchlilik', icon: Shield },
-		{ number: '24/7', label: "Qo'llab-quvvatlash", icon: Monitor },
+		{ number: '500+', label: t('stats.projects'), icon: Building2 },
+		{ number: '10,000+', label: t('stats.installedCameras'), icon: Camera },
+		{ number: '99.9%', label: t('stats.reliability'), icon: Shield },
+		{ number: '24/7', label: t('stats.support'), icon: Monitor },
 	]
 
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50'>
 			{/* Hero Section */}
 			<section className='relative bg-gradient-to-r from-secondary/10 to-secondary/5  py-8 overflow-hidden'>
-
 				<div className='relative container mx-auto px-6'>
 					<div className='max-w-3xl mx-auto text-center'>
 						<Badge className='mb-4 bg-purple-200/20 text-purple-500 border-purple-500/20 hover:bg-white/30'>
 							<Shield className='w-4 h-4 mr-2' />
-							Professional Security Solutions
+							{t('heroportfolio.badge')}
 						</Badge>
 						<h1 className='text-4xl md:text-5xl font-bold mb-4 leading-tight'>
-							Bizning{' '}
-							<span className='text-red-400'>Portfolio</span>
+							{t('heroportfolio.title1')}{' '}
+							<span className='text-red-400'>
+								{t('heroportfolio.title2')}
+							</span>
 						</h1>
 						<p className='text-lg md:text-xl opacity-90 mb-6 leading-relaxed'>
-							O'zbekiston bo'ylab 500+ muvaffaqiyatli loyihalar.
-							Eng murakkab xavfsizlik masalalarini zamonaviy
-							texnologiyalar bilan hal qilamiz.
+							{t('heroportfolio.description')}
 						</p>
 						<div className='flex justify-center space-x-4'>
 							<Button
 								size='lg'
 								className='bg-white text-red-600 hover:bg-blue-50'
 							>
-								Videoni ko'rish
+								{t('heroportfolio.watchVideo')}
 								<Play className='w-5 h-5 ml-2' />
 							</Button>{' '}
 							<Button
 								size='lg'
 								className='bg-white text-blue-600 hover:bg-blue-50'
 							>
-								Loyihalarni ko'rish
+								{t('heroportfolio.viewProjects')}
 								<ArrowRight className='w-5 h-5 ml-2' />
 							</Button>
 						</div>
@@ -213,11 +213,10 @@ const Portfolio = () => {
 				<div className='container mx-auto px-6'>
 					<div className='text-center mb-12'>
 						<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
-							Muvaffaqiyatli Loyihalar
+							{t('portfolio.successProjects')}
 						</h2>
 						<p className='text-lg text-gray-600 max-w-2xl mx-auto'>
-							Turli sohalarda amalga oshirilgan loyihalarimiz
-							bilan tanishing
+							{t('portfolio.description')}
 						</p>
 					</div>
 
@@ -343,7 +342,7 @@ const Portfolio = () => {
 				<div className='container mx-auto px-6'>
 					<div className='text-center mb-12'>
 						<h2 className='text-3xl font-bold text-gray-900 mb-4'>
-							Muvaffaqiyat Tarixi
+							{t('portfolio.successStories')}
 						</h2>
 						<p className='text-gray-600 max-w-2xl mx-auto'>
 							Mijozlarimizning ishonchi va muvaffaqiyatli

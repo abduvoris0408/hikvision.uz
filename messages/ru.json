@@ -15,6 +15,7 @@
 		"addressText": "г. Ташкент, район Чиланзар, ул. Арнасой 7A"
 	},
 	"products": {
+		"viewMore": "Подробнее",
 		"title": "Товары",
 		"description": "Самые популярные и надёжные системы безопасности и оборудование",
 		"categories": "Категории",
@@ -177,5 +178,94 @@
 		"indicators": {
 			"aria": "Индикатор слайдов"
 		}
+	},
+	"contactsection": {
+		"phone": "Телефон",
+		"address": "Адрес",
+		"addressText": "Ташкент, Узбекистан, улица Амира Темура, 10",
+		"workTime": "Рабочее время",
+		"workHours": "Понедельник - Пятница: 9:00 - 18:00",
+		"sendMessage": "Отправить сообщение",
+		"namePlaceholder": "Ваше имя",
+		"emailPlaceholder": "Ваш Email",
+		"subjectPlaceholder": "Тема письма",
+		"messagePlaceholder": "Сообщение",
+		"submitButton": "Отправить",
+		"introText": "Спасибо за посещение нашего сайта. Пожалуйста, используйте форму ниже, чтобы связаться с нами."
+	},
+	"footer": {
+		"company": {
+			"partnerText": "Официальный партнер в Узбекистане",
+			"askQuestion": "Есть вопросы? Звоните!",
+			"addressLabel": "Мы находимся по адресу",
+			"addressLine1": "город Ташкент, район Чиланзар,",
+			"addressLine2": "улица Арнасой 7А"
+		},
+		"productCategories": {
+			"title": "Переходы",
+			"warranty": "Гарантия",
+			"turboHdCamera": "Turbo HD Камера",
+			"turboHdPtz": "Turbo HD PTZ"
+		},
+		"solutions": {
+			"title": "Отделы",
+			"dvr": "DVR (Digital Video Recorder)",
+			"ipCamera": "IP Камера",
+			"intercom": "Домофоны",
+			"biometric": "Биометрические системы"
+		},
+		"departments": {
+			"title": "Отделы",
+			"turnstiles": "Турникеты",
+			"poeManaged": "POE Managed Switch",
+			"poeUnmanaged": "POE Unmanaged Switch",
+			"nvr": "NVR (Network Video Recorder)"
+		},
+		"bottom": {
+			"madeBy": "Создано:"
+		}
+	},
+	"categories": {
+		"catalog": "Каталог продукции",
+		"all": "Все",
+		"turnstiles": "Турникеты",
+		"accessControl": "Системы контроля доступа",
+		"cardSystems": "Карточные системы",
+		"biometric": "Биометрические системы",
+		"password": "Парольные системы",
+		"videoSurveillance": "Системы видеонаблюдения",
+		"ipCameras": "IP-камеры",
+		"analogCameras": "Аналоговые камеры",
+		"recorders": "DVR/NVR",
+		"barriers": "Системы шлагбаумов",
+		"zkteco": "ZKTeco Узбекистан",
+		"fireAlarm": "Системы пожарной сигнализации",
+		"network": "Сетевое оборудование",
+		"switches": "Коммутаторы",
+		"routers": "Маршрутизаторы",
+		"wifi": "Wi-Fi оборудование",
+		"accessories": "Аксессуары и прочее",
+		"cables": "Кабели",
+		"smartHome": "Умный дом",
+		"securityDoors": "Защитные двери"
+	},
+	"stats": {
+		"projects": "Проекты",
+		"installedCameras": "Установленные камеры",
+		"reliability": "Надёжность",
+		"support": "Поддержка"
+	},
+	"heroportfolio": {
+		"badge": "Профессиональные решения безопасности",
+		"title1": "Наше",
+		"title2": "Портфолио",
+		"description": "500+ успешных проектов по всему Узбекистану. Решаем сложные вопросы безопасности с помощью современных технологий.",
+		"watchVideo": "Смотреть видео",
+		"viewProjects": "Смотреть проекты"
+	},
+	"portfolio": {
+		"successProjects": "Успешные проекты",
+		"successStories": "Истории успеха",
+		"description": "Ознакомьтесь с нашими проектами в различных областях"
 	}
 }

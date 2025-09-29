@@ -15,6 +15,7 @@
 		"addressText": "Toshkent shahri, Chilanzar tumani, Arnasoy kochasi 7A"
 	},
 	"products": {
+		"viewMore": "Batafsil ko'rish",
 		"title": "Mahsulotlar",
 		"description": "Eng mashhur va ishonchli xavfsizlik tizimlari va uskunalari",
 		"categories": "Kategoriyalar",
@@ -173,5 +174,96 @@
 		"indicators": {
 			"aria": "Slaydlar indikatori"
 		}
+	},
+	"contactsection": {
+		"phone": "Telefon",
+		"address": "Manzil",
+		"addressText": "Toshkent, O'zbekiston, Amir Temur ko'chasi, 10-uy",
+		"workTime": "Ish vaqti",
+		"workHours": "Dushanba - Jumagacha: 9:00 - 18:00",
+		"sendMessage": "Xabar yuborish",
+		"namePlaceholder": "Ismingiz",
+		"emailPlaceholder": "Sizning elektron manzilingiz",
+		"subjectPlaceholder": "Post mavzusi",
+		"messagePlaceholder": "Xabar",
+		"submitButton": "Yuborish",
+		"introText": "Saytimizga tashrif buyurganingiz uchun tashakkur. Biz bilan bog‘lanish uchun quyidagi shakldan foydalaning."
+	},
+	"footer": {
+		"company": {
+			"partnerText": "O'zbekistondagi rasmiy hamkori",
+			"askQuestion": "Savolingiz bormi? Qo'ng'iroq qiling!",
+			"addressLabel": "Biz shu manzildamiz",
+			"addressLine1": "Toshkent shahri, Chilanzar tumani,",
+			"addressLine2": "Arnasoy ko'chasi 7A"
+		},
+		"productCategories": {
+			"title": "O'tishlar",
+			"warranty": "Garantiya",
+			"turboHdCamera": "Turbo HD Kamera",
+			"turboHdPtz": "Turbo HD PTZ"
+		},
+		"solutions": {
+			"title": "Bo'limlar",
+			"dvr": "DVR (Digital Video Recorder)",
+			"ipCamera": "IP Kamera",
+			"intercom": "Domofony",
+			"biometric": "Biometricheskie sistemy"
+		},
+		"departments": {
+			"title": "Bo'limlar",
+			"turnstiles": "Turniketlar",
+			"poeManaged": "POE Managed Switch",
+			"poeUnmanaged": "POE Unmanaged Switch",
+			"nvr": "NVR (Network Video Recorder)"
+		},
+		"bottom": {
+			"madeBy": "Tayyorlandi:"
+		}
+	},
+
+	"categories": {
+		"catalog": "Mahsulotlar katalogi",
+		"all": "Barchasi",
+		"turnstiles": "Turniketlar",
+		"accessControl": "Kirish nazorati tizimlari",
+		"cardSystems": "Kartali tizimlar",
+		"biometric": "Biometrik tizimlar",
+		"password": "Parol tizimlari",
+		"videoSurveillance": "Video kuzatuv tizimlari",
+		"ipCameras": "IP kameralar",
+		"analogCameras": "Analog kameralar",
+		"recorders": "DVR/NVR",
+		"barriers": "Shlagbaum tizimlari",
+		"zkteco": "ZKTeco O'zbekiston",
+		"fireAlarm": "Yong'in signalizatsiya tizimlari",
+		"network": "Tarmoq uskunalari",
+		"switches": "Switchlar",
+		"routers": "Routerlar",
+		"wifi": "Wi-Fi uskunalari",
+		"accessories": "Aksessuarlar va boshqalar",
+		"cables": "Kabellar",
+		"smartHome": "Aqlli uy",
+		"securityDoors": "Himoya eshiklari"
+	},
+
+	"stats": {
+		"projects": "Loyihalar",
+		"installedCameras": "O'rnatilgan kameralar",
+		"reliability": "Ishonchlilik",
+		"support": "Qo'llab-quvvatlash"
+	},
+	"heroportfolio": {
+		"badge": "Professional Security Solutions",
+		"title1": "Bizning",
+		"title2": "Portfolio",
+		"description": "O'zbekiston bo'ylab 500+ muvaffaqiyatli loyihalar. Eng murakkab xavfsizlik masalalarini zamonaviy texnologiyalar bilan hal qilamiz.",
+		"watchVideo": "Videoni ko'rish",
+		"viewProjects": "Loyihalarni ko'rish"
+	},
+	"portfolio": {
+		"successProjects": "Muvaffaqiyatli Loyihalar",
+		"successStories": "Muvaffaqiyat Tarixi",
+		"description": "Turli sohalarda amalga oshirilgan loyihalarimiz bilan tanishing"
 	}
 }

@@ -29,7 +29,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${workSans.variable} ${geistMono.variable} antialiased`}
+				className={`${workSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
 			>
 				{' '}
 				<NextTopLoader color='blue' />

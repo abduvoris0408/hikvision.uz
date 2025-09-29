@@ -5,39 +5,51 @@ import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 export function Footer() {
-	const t = useTranslations()
+	const t = useTranslations('footer') // namespace qo‘shdik
 	const locale = useLocale()
 
 	const productCategories = [
-		{ name: 'Garantiya', href: `/${locale}/warranty` },
-		{ name: 'Turbo HD Kamera', href: `/${locale}/products/turbo-hd` },
-		{ name: 'Turbo HD PTZ', href: `/${locale}/products/turbo-hd-ptz` },
+		{ name: t('productCategories.warranty'), href: `/${locale}/warranty` },
+		{
+			name: t('productCategories.turboHdCamera'),
+			href: `/${locale}/products/turbo-hd`,
+		},
+		{
+			name: t('productCategories.turboHdPtz'),
+			href: `/${locale}/products/turbo-hd-ptz`,
+		},
 	]
 
 	const solutions = [
+		{ name: t('solutions.dvr'), href: `/${locale}/solutions/dvr` },
 		{
-			name: 'DVR (Digital Video Recorder)',
-			href: `/${locale}/solutions/dvr`,
+			name: t('solutions.ipCamera'),
+			href: `/${locale}/solutions/ip-camera`,
 		},
-		{ name: 'IP Kamera', href: `/${locale}/solutions/ip-camera` },
-		{ name: 'Domofony', href: `/${locale}/solutions/intercom` },
 		{
-			name: 'Biometricheskie sistemy',
+			name: t('solutions.intercom'),
+			href: `/${locale}/solutions/intercom`,
+		},
+		{
+			name: t('solutions.biometric'),
 			href: `/${locale}/solutions/biometric`,
 		},
 	]
 
 	const departments = [
-		{ name: 'Turniketlar', href: `/${locale}/products/turnstiles` },
-		{ name: 'POE Managed Switch', href: `/${locale}/products/poe-managed` },
 		{
-			name: 'POE Unmanaged Switch',
+			name: t('departments.turnstiles'),
+			href: `/${locale}/products/turnstiles`,
+		},
+		{
+			name: t('departments.poeManaged'),
+			href: `/${locale}/products/poe-managed`,
+		},
+		{
+			name: t('departments.poeUnmanaged'),
 			href: `/${locale}/products/poe-unmanaged`,
 		},
-		{
-			name: 'NVR (Network Video Recorder)',
-			href: `/${locale}/products/nvr`,
-		},
+		{ name: t('departments.nvr'), href: `/${locale}/products/nvr` },
 	]
 
 	return (
@@ -46,7 +58,6 @@ export function Footer() {
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
 					{/* Company Info */}
 					<div className='flex flex-col items-center md:items-start text-center md:text-left space-y-4'>
-						{/* Logo (HIK red, VISION gray) */}
 						<Link href='/' className='flex items-center'>
 							<div className='flex flex-col items-= leading-tight'>
 								<div className='font-bold tracking-wide text-2xl'>
@@ -58,13 +69,13 @@ export function Footer() {
 									</span>
 								</div>
 								<div className='text-xs text-black '>
-									O'zbekistondagi rasmiy hamkori
+									{t('company.partnerText')}
 								</div>
 							</div>
 						</Link>
 
 						<p className='text-sm text-muted-foreground'>
-							Savolingiz bormi? Qo'ng'iroq qiling!
+							{t('company.askQuestion')}
 						</p>
 
 						<div className='space-y-2'>
@@ -78,14 +89,14 @@ export function Footer() {
 								</a>
 							</div>
 							<div className='text-sm text-muted-foreground text-center md:text-left'>
-								Biz shu manzildamiz
+								{t('company.addressLabel')}
 							</div>
 							<div className='flex items-start gap-2 text-sm justify-center md:justify-start'>
 								<MapPin className='h-4 w-4 text-secondary mt-0.5' />
 								<span>
-									Toshkent shahri, Chilanzar tumani,
+									{t('company.addressLine1')}
 									<br />
-									Arnasoy ko'chasi 7A
+									{t('company.addressLine2')}
 								</span>
 							</div>
 						</div>
@@ -109,7 +120,7 @@ export function Footer() {
 					{/* Product Categories */}
 					<div className='text-center md:text-left'>
 						<h3 className='font-semibold text-foreground mb-3'>
-							O'tishlar
+							{t('productCategories.title')}
 						</h3>
 						<ul className='space-y-2'>
 							{productCategories.map(item => (
@@ -128,7 +139,7 @@ export function Footer() {
 					{/* Solutions */}
 					<div className='text-center md:text-left'>
 						<h3 className='font-semibold text-foreground mb-3'>
-							Bo'limlar
+							{t('solutions.title')}
 						</h3>
 						<ul className='space-y-2'>
 							{solutions.map(item => (
@@ -147,7 +158,7 @@ export function Footer() {
 					{/* Departments */}
 					<div className='text-center md:text-left'>
 						<h3 className='font-semibold text-foreground mb-3'>
-							Bo'limlar
+							{t('departments.title')}
 						</h3>
 						<ul className='space-y-2'>
 							{departments.map(item => (
@@ -167,7 +178,7 @@ export function Footer() {
 				{/* Bottom Bar */}
 				<div className='border-t mt-8 pt-8 text-center'>
 					<p className='text-sm text-muted-foreground'>
-						© 2020-2025 Hikvision O'zbekiston. Tayyorlandi:{' '}
+						© 2020-2025 Hikvision O'zbekiston. {t('bottom.madeBy')}{' '}
 						<a
 							className='text-secondary'
 							href='https://abduvorismominovuz.vercel.app/'

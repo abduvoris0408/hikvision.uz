@@ -1,7 +1,5 @@
 'use client'
 
-import type React from 'react'
-
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -9,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { motion } from 'framer-motion'
 import { Clock, MapPin, Phone } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import type React from 'react'
 import { useState } from 'react'
 
 export function ContactSection() {
@@ -22,8 +21,6 @@ export function ContactSection() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		// Handle form submission
-		console.log('Form submitted:', formData)
 	}
 
 	const handleChange = (
@@ -38,6 +35,7 @@ export function ContactSection() {
 	return (
 		<section className='py-16 bg-muted/30'>
 			<div className='container mx-auto px-4'>
+				{/* Section Header */}
 				<div className='text-center mb-12'>
 					<motion.h2
 						initial={{ opacity: 0, y: 30 }}
@@ -45,7 +43,7 @@ export function ContactSection() {
 						viewport={{ once: true }}
 						className='text-3xl md:text-4xl font-bold mb-4 text-balance'
 					>
-						Biz bilan bog'lanish
+						{t('contactsection.sendMessage')}
 					</motion.h2>
 					<motion.p
 						initial={{ opacity: 0, y: 30 }}
@@ -54,11 +52,10 @@ export function ContactSection() {
 						viewport={{ once: true }}
 						className='text-lg text-muted-foreground text-pretty max-w-2xl mx-auto'
 					>
-						Saytimizga tashrif buyurganingiz uchun tashakkur.
-						Veb-saytimizda biz bilan bog'lanish uchun telefon
-						raqamlarimiz mavjud. Agar sizda biron bir shikoyat,
-						taklif va mulohazalaringiz bo'lsa, quyidagi shaklni
-						to'ldirib, bizga yuborishingiz mumkin.
+						{t('contactsection.introText', {
+							defaultValue:
+								"Saytimizga tashrif buyurganingiz uchun tashakkur. Veb-saytimizda biz bilan bog'lanish uchun telefon raqamlarimiz mavjud. Agar sizda biron bir shikoyat, taklif va mulohazalaringiz bo'lsa, quyidagi shaklni to'ldirib, bizga yuborishingiz mumkin.",
+						})}
 					</motion.p>
 				</div>
 
@@ -74,7 +71,7 @@ export function ContactSection() {
 							<CardHeader>
 								<CardTitle className='flex items-center gap-2'>
 									<Phone className='h-5 w-5 text-secondary' />
-									{t('contact.phone')}
+									{t('contactsection.phone')}
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
@@ -88,11 +85,11 @@ export function ContactSection() {
 							<CardHeader>
 								<CardTitle className='flex items-center gap-2'>
 									<MapPin className='h-5 w-5 text-secondary' />
-									{t('contact.address')}
+									{t('contactsection.address')}
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<p>{t('contact.addressText')}</p>
+								<p>{t('contactsection.addressText')}</p>
 							</CardContent>
 						</Card>
 
@@ -100,11 +97,11 @@ export function ContactSection() {
 							<CardHeader>
 								<CardTitle className='flex items-center gap-2'>
 									<Clock className='h-5 w-5 text-secondary' />
-									{t('contact.workTime')}
+									{t('contactsection.workTime')}
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<p>{t('contact.workHours')}</p>
+								<p>{t('contactsection.workHours')}</p>
 							</CardContent>
 						</Card>
 					</motion.div>
@@ -117,7 +114,9 @@ export function ContactSection() {
 					>
 						<Card>
 							<CardHeader>
-								<CardTitle>Xabar yuborish</CardTitle>
+								<CardTitle>
+									{t('contactsection.sendMessage')}
+								</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<form
@@ -127,7 +126,9 @@ export function ContactSection() {
 									<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 										<Input
 											name='name'
-											placeholder='Ismingiz'
+											placeholder={t(
+												'contactsection.namePlaceholder'
+											)}
 											value={formData.name}
 											onChange={handleChange}
 											required
@@ -135,7 +136,9 @@ export function ContactSection() {
 										<Input
 											name='email'
 											type='email'
-											placeholder='Sizning elektron manzilingiz'
+											placeholder={t(
+												'contactsection.emailPlaceholder'
+											)}
 											value={formData.email}
 											onChange={handleChange}
 											required
@@ -143,21 +146,25 @@ export function ContactSection() {
 									</div>
 									<Input
 										name='subject'
-										placeholder='Post mavzusi'
+										placeholder={t(
+											'contactsection.subjectPlaceholder'
+										)}
 										value={formData.subject}
 										onChange={handleChange}
 										required
 									/>
 									<Textarea
 										name='message'
-										placeholder='Xabar'
+										placeholder={t(
+											'contactsection.messagePlaceholder'
+										)}
 										rows={5}
 										value={formData.message}
 										onChange={handleChange}
 										required
 									/>
 									<Button type='submit' className='w-full'>
-										Yuborish
+										{t('contactsection.submitButton')}
 									</Button>
 								</form>
 							</CardContent>

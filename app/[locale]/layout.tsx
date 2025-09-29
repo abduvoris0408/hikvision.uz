@@ -1,17 +1,14 @@
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
-import { PageTransition } from '@/components/ui/page-transition'
 import { SplashScreen } from '@/components/ui/splash-screen'
 import { Analytics } from '@vercel/analytics/next'
-import { Loader } from 'lucide-react'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { Geist_Mono, Work_Sans } from 'next/font/google'
 import type React from 'react'
 import { Suspense } from 'react'
 import '../globals.css'
-import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
 const workSans = Work_Sans({
 	subsets: ['latin'],
@@ -64,19 +61,17 @@ export default async function LocaleLayout({
 	return (
 		<NextIntlClientProvider locale={locale} messages={messages}>
 			<Suspense
-				fallback={
-					<div>
-						<LoadingSpinner/>
-					</div>
-				}
+			// fallback={
+			// 	<div>
+			// 		<LoadingSpinner />
+			// 	</div>
+			// }
 			>
 				<SplashScreen />
 				<ErrorBoundary>
 					<div className='min-h-screen flex flex-col'>
 						<Header />
-						<main className='flex-1'>
-							<PageTransition>{children}</PageTransition>
-						</main>
+						<main className=''>{children}</main>
 						<Footer />
 					</div>
 				</ErrorBoundary>
